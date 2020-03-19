@@ -1,0 +1,29 @@
+---
+    - hosts: all
+      remote_user: root
+      tasks:
+        - name: installation of Bahmni
+          yum:
+            name: https://kojipkgs.fedoraproject.org//packages/zlib/1.2.11/19.fc30/x86_64/zlib-1.2.11-19.fc30.x86_64.rpm
+            state: present
+        - name: Install the bahmni command line program
+          yum:
+            name: https://dl.bintray.com/bahmni/rpm/rpms/bahmni-installer-0.92-147.noarch.rpm
+            state: present
+        - name: Now setup a configuration file for bahmni command in /etc/bahmni-installer
+          shell:
+            cmd: curl -L https://tinyurl.com/yyoj98df >> /etc/bahmni-installer/setup.yml
+        - name: appending
+          copy:
+            src: /home/devops/bahmni/setup.yml
+            dest: /etc/bahmni-installer/setup.yaml
+        - name: nventory file name to local in BAHMNI_INVENTORY
+          shell:
+            cmd: echo "export BAHMNI_INVENTORY=local" >> ~/.bashrc
+        - name: nventory file name to local in BAHMNI_INVENTORY
+          shell:
+            cmd: source ~/.bashrc
+        - name: Now fire the installer
+          shell:
+            cmd: bahmni install
+        
