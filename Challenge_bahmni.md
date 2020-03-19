@@ -4,36 +4,32 @@
  - Create an Centos 7 instance with atleast 4 cores and 8 GB of RAM (t2.large)
  - Login into the centos instance become root user and install the following
 
-----
+
+```
 yum install -y https://kojipkgs.fedoraproject.org//packages/zlib/1.2.11/19.fc30/x86_64/zlib-1.2.11-19.fc30.x86_64.rpm
  
 yum install https://dl.bintray.com/bahmni/rpm/rpms/bahmni-installer-0.92-147.noarch.rpm
  
 bahmni --help
-  
 curl -L https://tinyurl.com/yyoj98df >> /etc/bahmni-installer/setup.yml
-  
 cat /etc/bahmni-installer/setup.yml
-
  please read this document: https://bahmni.atlassian.net/wiki/display/BAH/List+Of+Configurable+Installation+Variables
-
 #You can also configure custom inventory file instead of local.
 echo "export BAHMNI_INVENTORY=local" >> ~/.bashrc
 source ~/.bashrc
-
 bahmni install 
-  
 yum list installed | grep bahmni
-----
+```
 
 for Configurable Installation Variables [referhere](https://bahmni.atlassian.net/wiki/spaces/BAH/pages/53837974/List+Of+Configurable+Installation+Variables)
 
 - edit the bellow content to /etc/bahmni-installer/setup.yml
----
+
+```
 timezone: Asia/Kolkata
 implementation_name: default
 selinux_state: enforcing
----
+```
 
 # after successful instlation Access the Application using 
 
@@ -45,7 +41,7 @@ selinux_state: enforcing
 
 - the playbook look like this 
 
----
+```
     - hosts: all
       remote_user: root
       tasks:
@@ -73,7 +69,7 @@ selinux_state: enforcing
         - name: Now fire the installer
           shell:
             cmd: bahmni install
----        
+```        
 
 # steps to deploy 
  
@@ -89,10 +85,10 @@ selinux_state: enforcing
 
  - in the build section in jenkins select exucute shell and exucute bellow commands 
 
----
+```
 cd /home/devops/bahmni
 ansible-playbook -i <inventroy> <your.yaml> -vvv
----
+```
 
 # after successful build Access the Application using centos public ip 
 
@@ -119,7 +115,3 @@ ansible-playbook -i <inventroy> <your.yaml> -vvv
 ![Preview](./images/challenge29.PNG)
 
 ![Preview](./images/challenge30.PNG)
-
-
-  
-
