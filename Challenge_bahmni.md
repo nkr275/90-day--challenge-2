@@ -1,6 +1,6 @@
 # Bhamani Application Deployment 
 
-# Manual Installation
+## Manual Installation
  - Create an Centos 7 instance with atleast 4 cores and 8 GB of RAM (t2.large)
  - Login into the centos instance become root user and install the following
 
@@ -31,15 +31,15 @@ implementation_name: default
 selinux_state: enforcing
 ```
 
-# after successful instlation Access the Application using 
+## after successful instlation Access the Application using 
 
 ![Preview](./images/challenge2.PNG)
 
-# instalation using jenkins 
+## instalation using jenkins 
 
-- after successful manual instalation convert above manual steps to ansible play book 
+  - after successful manual instalation convert above manual steps to ansible play book 
 
-- the playbook look like this 
+  - the playbook look like this 
 
 ```
     - hosts: all
@@ -71,30 +71,30 @@ selinux_state: enforcing
             cmd: bahmni install
 ```        
 
-# steps to deploy 
+## steps to deploy 
  
- - take jenkins Master & ACS 
- - Add the acs  to the Jenkins master. Select Manage Jenkins => Manage Nodes => New Node
+  - take jenkins Master & ACS 
+  - Add the acs  to the Jenkins master. Select Manage Jenkins => Manage Nodes => New Node
 
 ![Preview](./images/challenge21.PNG)
 
- - Create new Jenkins Freestyle project and restrict where this project is built in General Section
+  - Create new Jenkins Freestyle project and restrict where this project is built in General Section
 
 ![Preview](./images/challenge22.PNG)
 
 
- - in the build section in jenkins select exucute shell and exucute bellow commands 
+  - in the build section in jenkins select exucute shell and exucute bellow commands 
 
 ```
 cd /home/devops/bahmni
 ansible-playbook -i <inventroy> <your.yaml> -vvv
 ```
 
-# after successful build Access the Application using centos public ip 
+## after successful build Access the Application using centos public ip 
 
 ![Preview](./images/challenge2.PNG)
 
-# End results 
+## End results 
 
 ![Preview](./images/challenge23.PNG)
 
@@ -102,11 +102,11 @@ ansible-playbook -i <inventroy> <your.yaml> -vvv
 
 ![Preview](./images/challenge25.PNG)
 
-# Verify installed components using the command in centos node
+## Verify installed components using the command in centos node
 
 ![Preview](./images/challenge26.PNG)
 
-# jenkins output
+## jenkins output
 
 ![Preview](./images/challenge27.PNG)
 
