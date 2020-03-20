@@ -42,6 +42,7 @@ selinux_state: enforcing
   - the playbook look like this 
 
 ```
+   ---
     - hosts: all
       remote_user: root
       tasks:
@@ -56,10 +57,10 @@ selinux_state: enforcing
         - name: Now setup a configuration file for bahmni command in /etc/bahmni-installer
           shell:
             cmd: curl -L https://tinyurl.com/yyoj98df >> /etc/bahmni-installer/setup.yml
-        - name: appending
-          copy:
-            src: /home/devops/bahmni/setup.yml
-            dest: /etc/bahmni-installer/setup.yaml
+        - name: appending 
+          template :
+            src : /home/devops/bahmni/setup.yml.j2
+            dest : /etc/bahmni-installer/setup.yaml
         - name: nventory file name to local in BAHMNI_INVENTORY
           shell:
             cmd: echo "export BAHMNI_INVENTORY=local" >> ~/.bashrc
@@ -69,6 +70,7 @@ selinux_state: enforcing
         - name: Now fire the installer
           shell:
             cmd: bahmni install
+        
 ```        
 
 ## steps to deploy 
